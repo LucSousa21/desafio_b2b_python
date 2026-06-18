@@ -1,11 +1,14 @@
 import os
 import requests
 from conect_supabase import get_supabase_client
+from dotenv import load_dotenv
+
+load_dotenv()  # Carregar variáveis de ambiente do arquivo .env
 
 # Função para enviar mensagem usando a API do ZAPI
 def enviar_mensagem(nome, telefone):
-    try:
 
+    try:
         # Carregar variáveis de ambiente
         instance_id = os.getenv("ZAPI_INSTANCE_ID")
         token = os.getenv("ZAPI_TOKEN")
@@ -16,7 +19,7 @@ def enviar_mensagem(nome, telefone):
         # Mensagem personalizada
         payload = {
             "phone": telefone,
-            "message": f"Olá {nome}, tudo bem?"
+            "message": f"Olá, {nome}, tudo bem com você?"
         }
 
         # Enviar a requisição POST para a API do ZAPI
@@ -26,7 +29,6 @@ def enviar_mensagem(nome, telefone):
         if response.status_code != 200:
             print("Error:", response.status_code, response.text)
             
-        
         
         return response.status_code, response.text
         
